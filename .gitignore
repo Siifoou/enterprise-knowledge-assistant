@@ -1,2 +1,6 @@
 .env
 venv/
+data/
+llm_cache.json
+chroma_data/
+__pycache__/
