@@ -9,7 +9,8 @@
     ],
     "language": "FR",
     "category": "FR->FR",
-    "answerability": "answerable"
+    "answerability": "answerable",
+    "split": "calibration"
   },
   {
     "id": "q2",
@@ -21,7 +22,8 @@
     ],
     "language": "FR",
     "category": "FR->FR",
-    "answerability": "answerable"
+    "answerability": "answerable",
+    "split": "calibration"
   },
   {
     "id": "q3",
@@ -33,7 +35,8 @@
     ],
     "language": "FR",
     "category": "FR->FR",
-    "answerability": "answerable"
+    "answerability": "answerable",
+    "split": "calibration"
   },
   {
     "id": "q4",
@@ -45,7 +48,8 @@
     ],
     "language": "EN",
     "category": "EN->EN",
-    "answerability": "answerable"
+    "answerability": "answerable",
+    "split": "calibration"
   },
   {
     "id": "q5",
@@ -57,7 +61,8 @@
     ],
     "language": "EN",
     "category": "EN->EN",
-    "answerability": "answerable"
+    "answerability": "answerable",
+    "split": "calibration"
   },
   {
     "id": "q6",
@@ -69,7 +74,8 @@
     ],
     "language": "EN",
     "category": "EN->EN",
-    "answerability": "answerable"
+    "answerability": "answerable",
+    "split": "calibration"
   },
   {
     "id": "q7",
@@ -80,7 +86,8 @@
     ],
     "language": "FR",
     "category": "FR->EN",
-    "answerability": "answerable"
+    "answerability": "answerable",
+    "split": "calibration"
   },
   {
     "id": "q8",
@@ -91,7 +98,8 @@
     ],
     "language": "FR",
     "category": "FR->EN",
-    "answerability": "answerable"
+    "answerability": "answerable",
+    "split": "calibration"
   },
   {
     "id": "q9",
@@ -102,7 +110,8 @@
     ],
     "language": "EN",
     "category": "EN->FR",
-    "answerability": "answerable"
+    "answerability": "answerable",
+    "split": "calibration"
   },
   {
     "id": "q10",
@@ -113,7 +122,8 @@
     ],
     "language": "EN",
     "category": "EN->FR",
-    "answerability": "answerable"
+    "answerability": "answerable",
+    "split": "calibration"
   },
   {
     "id": "q11",
@@ -122,7 +132,8 @@
     "acceptable_sources": [],
     "language": "EN",
     "category": "unanswerable",
-    "answerability": "unanswerable"
+    "answerability": "unanswerable",
+    "split": "calibration"
   },
   {
     "id": "q12",
@@ -131,6 +142,147 @@
     "acceptable_sources": [],
     "language": "FR",
     "category": "unanswerable",
-    "answerability": "unanswerable"
+    "answerability": "unanswerable",
+    "split": "calibration"
+  },
+  {
+    "id": "q13",
+    "question": "Quel préavis faut-il respecter pour poser des vacances ?",
+    "expected_answer": "Au moins deux semaines avant la date souhaitée, via le portail RH",
+    "acceptable_sources": [
+      "politique_conges.docx",
+      "vacation_policy.docx"
+    ],
+    "language": "FR",
+    "category": "FR->FR",
+    "answerability": "answerable",
+    "split": "holdout"
+  },
+  {
+    "id": "q14",
+    "question": "Dois-je prévenir les RH si je télétravaille depuis un autre pays pendant 20 jours consécutifs ?",
+    "expected_answer": "Oui, au-delà de 15 jours consécutifs depuis un autre pays, il faut prévenir les ressources humaines à l'avance",
+    "acceptable_sources": [
+      "politique_teletravail.pdf",
+      "remote_work_policy.pdf"
+    ],
+    "language": "FR",
+    "category": "FR->FR",
+    "answerability": "answerable",
+    "split": "holdout"
+  },
+  {
+    "id": "q15",
+    "question": "Does the remote work policy apply to warehouse staff?",
+    "expected_answer": "No, it does not apply to on-site required roles such as warehouse and facilities staff",
+    "acceptable_sources": [
+      "politique_teletravail.pdf",
+      "remote_work_policy.pdf"
+    ],
+    "language": "EN",
+    "category": "EN->EN",
+    "answerability": "answerable",
+    "split": "holdout"
+  },
+  {
+    "id": "q16",
+    "question": "Can I carry over 8 unused vacation days to next year?",
+    "expected_answer": "No, at most 5 days can be carried over; the rest are forfeited at year-end unless local labor law requires otherwise",
+    "acceptable_sources": [
+      "politique_conges.docx",
+      "vacation_policy.docx"
+    ],
+    "language": "EN",
+    "category": "EN->EN",
+    "answerability": "answerable",
+    "split": "holdout"
+  },
+  {
+    "id": "q17",
+    "question": "Quel est le montant maximum remboursé pour une nuit d'hôtel ?",
+    "expected_answer": "120 euros par nuit",
+    "acceptable_sources": [
+      "expense_reimbursement_policy.pdf"
+    ],
+    "language": "FR",
+    "category": "FR->EN",
+    "answerability": "answerable",
+    "split": "holdout"
+  },
+  {
+    "id": "q18",
+    "question": "Mon billet d'avion pour un déplacement professionnel coûte 800 euros. Ai-je besoin de l'accord de mon manager avant de l'acheter ?",
+    "expected_answer": "Oui, toute dépense unique supérieure à 500 euros nécessite l'accord écrit préalable du manager",
+    "acceptable_sources": [
+      "expense_reimbursement_policy.pdf"
+    ],
+    "language": "FR",
+    "category": "FR->EN",
+    "answerability": "answerable",
+    "split": "holdout"
+  },
+  {
+    "id": "q19",
+    "question": "What is the yearly training budget for each employee?",
+    "expected_answer": "1,200 euros per employee per year",
+    "acceptable_sources": [
+      "politique_formation.docx"
+    ],
+    "language": "EN",
+    "category": "EN->FR",
+    "answerability": "answerable",
+    "split": "holdout"
+  },
+  {
+    "id": "q20",
+    "question": "How far in advance do I need to request a training?",
+    "expected_answer": "At least 4 weeks before the training starts",
+    "acceptable_sources": [
+      "politique_formation.docx"
+    ],
+    "language": "EN",
+    "category": "EN->FR",
+    "answerability": "answerable",
+    "split": "holdout"
+  },
+  {
+    "id": "q21",
+    "question": "How many sick days am I entitled to per year?",
+    "expected_answer": "I don't know based on the available documents.",
+    "acceptable_sources": [],
+    "language": "EN",
+    "category": "unanswerable",
+    "answerability": "unanswerable",
+    "split": "calibration"
+  },
+  {
+    "id": "q22",
+    "question": "Quel est le code vestimentaire à respecter en télétravail ?",
+    "expected_answer": "I don't know based on the available documents.",
+    "acceptable_sources": [],
+    "language": "FR",
+    "category": "unanswerable",
+    "answerability": "unanswerable",
+    "split": "calibration"
+  },
+  {
+    "id": "q23",
+    "question": "Does the company reimburse mileage when I use my personal car for a business trip?",
+    "expected_answer": "I don't know based on the available documents.",
+    "acceptable_sources": [],
+    "language": "EN",
+    "category": "unanswerable",
+    "answerability": "unanswerable",
+    "split": "holdout"
+  },
+  {
+    "id": "q24",
+    "question": "Le budget de formation non utilisé peut-il être reporté sur l'année suivante ?",
+    "expected_answer": "I don't know based on the available documents.",
+    "acceptable_sources": [],
+    "language": "FR",
+    "category": "unanswerable",
+    "answerability": "unanswerable",
+    "split": "holdout"
   }
 ]

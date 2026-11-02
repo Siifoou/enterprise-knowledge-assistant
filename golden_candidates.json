@@ -1,0 +1,166 @@
+[
+  {
+    "id": "q13",
+    "question": "Quel préavis faut-il respecter pour poser des vacances ?",
+    "expected_answer": "Au moins deux semaines avant la date souhaitée, via le portail RH",
+    "acceptable_sources": [
+      "politique_conges.docx",
+      "vacation_policy.docx"
+    ],
+    "language": "FR",
+    "category": "FR->FR",
+    "answerability": "answerable",
+    "split": "holdout",
+    "verified": true,
+    "evidence": "politique_conges.docx: « Toute demande de congé doit être déposée sur le portail RH au moins deux semaines avant la date souhaitée... »"
+  },
+    {
+    "id": "q14",
+    "question": "Dois-je prévenir les RH si je télétravaille depuis un autre pays pendant 20 jours consécutifs ?",
+    "expected_answer": "Oui, au-delà de 15 jours consécutifs depuis un autre pays, il faut prévenir les ressources humaines à l'avance",
+    "acceptable_sources": [
+      "politique_teletravail.pdf",
+      "remote_work_policy.pdf"
+    ],
+    "language": "FR",
+    "category": "FR->FR",
+    "answerability": "answerable",
+    "split": "holdout",
+    "verified": true,
+    "evidence": "politique_teletravail.pdf: « ...pendant plus de 15 jours consécutifs doit prévenir les ressources humaines au préalable... » (20 > 15)"
+  },
+  {
+    "id": "q15",
+    "question": "Does the remote work policy apply to warehouse staff?",
+    "expected_answer": "No, it does not apply to on-site required roles such as warehouse and facilities staff",
+    "acceptable_sources": [
+      "politique_teletravail.pdf",
+      "remote_work_policy.pdf"
+    ],
+    "language": "EN",
+    "category": "EN->EN",
+    "answerability": "answerable",
+    "split": "holdout",
+    "verified": true,
+    "evidence": "remote_work_policy.pdf: « This policy does not apply to roles classified as 'on-site required', including warehouse and facilities staff. »"
+  },
+  {
+    "id": "q16",
+    "question": "Can I carry over 8 unused vacation days to next year?",
+    "expected_answer": "No, at most 5 days can be carried over; the rest are forfeited at year-end unless local labor law requires otherwise",
+    "acceptable_sources": [
+      "politique_conges.docx",
+      "vacation_policy.docx"
+    ],
+    "language": "EN",
+    "category": "EN->EN",
+    "answerability": "answerable",
+    "split": "holdout",
+    "verified": true,
+    "evidence": "vacation_policy.docx: « ...carried over to the following year, up to a maximum of 5 days. Any remaining unused days beyond this cap are forfeited at year-end... »"
+  },
+  {
+    "id": "q17",
+    "question": "Quel est le montant maximum remboursé pour une nuit d'hôtel ?",
+    "expected_answer": "120 euros par nuit",
+    "acceptable_sources": [
+      "expense_reimbursement_policy.pdf"
+    ],
+    "language": "FR",
+    "category": "FR->EN",
+    "answerability": "answerable",
+    "split": "holdout",
+    "verified": true,
+    "evidence": "expense_reimbursement_policy.pdf: « Hotel accommodation is reimbursed up to 120 EUR per night. »"
+  },
+  {
+    "id": "q18",
+    "question": "Mon billet d'avion pour un déplacement professionnel coûte 800 euros. Ai-je besoin de l'accord de mon manager avant de l'acheter ?",
+    "expected_answer": "Oui, toute dépense unique supérieure à 500 euros nécessite l'accord écrit préalable du manager",
+    "acceptable_sources": [
+      "expense_reimbursement_policy.pdf"
+    ],
+    "language": "FR",
+    "category": "FR->EN",
+    "answerability": "answerable",
+    "split": "holdout",
+    "verified": true,
+    "evidence": "expense_reimbursement_policy.pdf: « Any single expense above 500 EUR requires written approval from a manager before it is incurred. » (800 > 500; a flight is a travel expense, so it is in scope)"
+  },
+  {
+    "id": "q19",
+    "question": "What is the yearly training budget for each employee?",
+    "expected_answer": "1,200 euros per employee per year",
+    "acceptable_sources": [
+      "politique_formation.docx"
+    ],
+    "language": "EN",
+    "category": "EN->FR",
+    "answerability": "answerable",
+    "split": "holdout",
+    "verified": true,
+    "evidence": "politique_formation.docx: « Un budget annuel de 1 200 euros par salarié est prévu pour financer les frais de formation... »"
+  },
+  {
+    "id": "q20",
+    "question": "How far in advance do I need to request a training?",
+    "expected_answer": "At least 4 weeks before the training starts",
+    "acceptable_sources": [
+      "politique_formation.docx"
+    ],
+    "language": "EN",
+    "category": "EN->FR",
+    "answerability": "answerable",
+    "split": "holdout",
+    "verified": true,
+    "evidence": "politique_formation.docx: « Toute demande doit être déposée au moins 4 semaines avant le début de la formation. » (near-miss risk: vacation notice is 2 weeks)"
+  },
+  {
+    "id": "q21",
+    "question": "How many sick days am I entitled to per year?",
+    "expected_answer": "I don't know based on the available documents.",
+    "acceptable_sources": [],
+    "language": "EN",
+    "category": "unanswerable",
+    "answerability": "unanswerable",
+    "split": "calibration",
+    "verified": true,
+    "evidence": "No document mentions sick leave. Confirm by searching all 6 documents for 'sick' / 'maladie'."
+  },
+  {
+    "id": "q22",
+    "question": "Quel est le code vestimentaire à respecter en télétravail ?",
+    "expected_answer": "I don't know based on the available documents.",
+    "acceptable_sources": [],
+    "language": "FR",
+    "category": "unanswerable",
+    "answerability": "unanswerable",
+    "split": "calibration",
+    "verified": true,
+    "evidence": "No document mentions dress code. Confirm by searching for 'vestimentaire' / 'dress'."
+  },
+  {
+    "id": "q23",
+    "question": "Does the company reimburse mileage when I use my personal car for a business trip?",
+    "expected_answer": "I don't know based on the available documents.",
+    "acceptable_sources": [],
+    "language": "EN",
+    "category": "unanswerable",
+    "answerability": "unanswerable",
+    "split": "holdout",
+    "verified": true,
+    "evidence": "expense_reimbursement_policy.pdf covers meals, hotels, flights and receipts, but never mileage or personal car use. Confirm."
+  },
+  {
+    "id": "q24",
+    "question": "Le budget de formation non utilisé peut-il être reporté sur l'année suivante ?",
+    "expected_answer": "I don't know based on the available documents.",
+    "acceptable_sources": [],
+    "language": "FR",
+    "category": "unanswerable",
+    "answerability": "unanswerable",
+    "split": "holdout",
+    "verified": true,
+    "evidence": "politique_formation.docx gives the budget but says nothing about carrying it over. (The vacation policy's carryover rule is the trap.) Confirm."
+  }
+]
