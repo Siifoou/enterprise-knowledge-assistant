@@ -1,0 +1,29 @@
+{
+  "judge_model": "openai/gpt-oss-120b",
+  "source_eval_file": "eval_results\\eval_20261108_162116.json",
+  "source_config": {
+    "date": "2026-11-08T16:21:16",
+    "dataset_version": "4f8b3eda",
+    "dataset_size": 24,
+    "embedding_model": "paraphrase-multilingual-mpnet-base-v2",
+    "chunk_size": 500,
+    "chunk_overlap": 50,
+    "top_k": 3,
+    "llm_model": "openai/gpt-oss-120b",
+    "distance_threshold": 12.0
+  },
+  "answerable_scored": 2,
+  "unanswerable_scored": 2,
+  "means_answerable": {
+    "faithfulness": 1.0,
+    "context_recall": 1.0,
+    "answer_correct": 1.0
+  },
+  "answer_correct_unanswerable": 1.0,
+  "failed_judgments": {
+    "faithfulness": 0,
+    "context_recall": 0,
+    "answer_correct": 0,
+    "answer_correct (unanswerable)": 0
+  }
+}

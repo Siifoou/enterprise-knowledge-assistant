@@ -32,7 +32,11 @@ def ask(question: str, use_cache: bool = True) -> dict:
     chunks = retrieve_relevant_chunks(question)
     retrieval_time = time.time() - start
 
-    retrieved = [{"doc_name": c["doc_name"], "distance": c["distance"]} for c in chunks]
+    # "text" is the full chunk text: the RAGAS evaluation needs it to judge the answer
+    retrieved = [
+        {"doc_name": c["doc_name"], "distance": c["distance"], "text": c["text"]}
+        for c in chunks
+    ]
 
     if not chunks or chunks[0]["distance"] > DISTANCE_THRESHOLD:
         return {

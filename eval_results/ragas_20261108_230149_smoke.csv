@@ -1,0 +1,5 @@
+﻿id,category,split,user_input,response,reference,faithfulness,context_recall,answer_correct
+q1,FR->FR,calibration,Combien de jours de congé ai-je après 3 ans d'ancienneté ?,"Après 3 ans d'ancienneté, vous avez droit à **22 jours de congé** par an.",22 jours,1.0,1.0,1
+q2,FR->FR,calibration,Combien de jours par semaine puis-je télétravailler ?,Vous pouvez télétravailler jusqu’à **trois jours par semaine**.,3 jours par semaine,1.0,1.0,1
+q11,unanswerable,calibration,What is the company's policy on annual bonuses?,The provided context does not contain any information about the company's policy on annual bonuses.,I don't know based on the available documents.,,,1
+q12,unanswerable,calibration,Quelle est la politique de l'entreprise sur les voitures de fonction ?,Le contexte fourni ne contient aucune information concernant la politique de l’entreprise relative aux voitures de fonction.,I don't know based on the available documents.,,,1

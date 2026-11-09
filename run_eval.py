@@ -32,10 +32,13 @@ def rate(rows, key):
 
 
 retrieve_relevant_chunks("warm-up")  # loads the model first so it doesn't distort timings
+
 rows = []
+contexts_by_id = {}  # full chunk texts, saved in the JSON only (too long for the CSV)
 for item in dataset:
     result = ask(item["question"], use_cache=False)  # fresh Groq calls, never cached, for evaluation
     retrieved = result["retrieved"]
+    contexts_by_id[item["id"]] = [r["text"] for r in retrieved]
     acceptable = item["acceptable_sources"]
     answerable = item["answerability"] == "answerable"
     refused = result["answer"] == NO_ANSWER
@@ -43,6 +46,7 @@ for item in dataset:
     row = {
         "id": item["id"],
         "category": item["category"],
+        "split": item.get("split", "calibration"),
         "question": item["question"],
         "expected_answer": item["expected_answer"],
         "system_answer": result["answer"],
@@ -82,6 +86,15 @@ for cat in sorted({r["category"] for r in answered}):
         "top1_hit_rate": rate(cat_rows, "top1_hit"),
     }
 
+by_split = {}
+for sp in sorted({r["split"] for r in answered}):
+    sp_rows = [r for r in answered if r["split"] == sp]
+    by_split[sp] = {
+        "n": len(sp_rows),
+        "retrieval_hit_rate": rate(sp_rows, "retrieval_hit"),
+        "top1_hit_rate": rate(sp_rows, "top1_hit"),
+    }
+
 gen_times = [r["generation_time_s"] for r in rows if r["generation_time_s"] > 0]
 
 summary = {
@@ -91,6 +104,7 @@ summary = {
     "false_refusals": sum(r["false_refusal"] for r in answered),
     "number_match_rate (crude hint)": rate(answered, "number_match"),
     "by_category": by_category,
+    "by_split": by_split,
     "unanswerable_questions": len(unanswered),
     "unanswerable_refused_by_threshold": sum(r["unanswerable_result"] == "refused_by_threshold" for r in unanswered),
     "unanswerable_needing_manual_review": sum(r["unanswerable_result"] == "REVIEW_MANUALLY" for r in unanswered),
@@ -111,8 +125,9 @@ config = {
 }
 
 stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+json_rows = [{**r, "retrieved_contexts": contexts_by_id[r["id"]]} for r in rows]
 with open(f"eval_results/eval_{stamp}.json", "w", encoding="utf-8") as f:
-    json.dump({"config": config, "summary": summary, "rows": rows}, f, ensure_ascii=False, indent=2)
+    json.dump({"config": config, "summary": summary, "rows": json_rows}, f, ensure_ascii=False, indent=2)
 
 with open(f"eval_results/eval_{stamp}.csv", "w", encoding="utf-8-sig", newline="") as f:
     writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))

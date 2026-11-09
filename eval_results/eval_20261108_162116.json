@@ -1,0 +1,589 @@
+{
+  "config": {
+    "date": "2026-11-08T16:21:16",
+    "dataset_version": "4f8b3eda",
+    "dataset_size": 24,
+    "embedding_model": "paraphrase-multilingual-mpnet-base-v2",
+    "chunk_size": 500,
+    "chunk_overlap": 50,
+    "top_k": 3,
+    "llm_model": "openai/gpt-oss-120b",
+    "distance_threshold": 12.0
+  },
+  "summary": {
+    "answerable_questions": 18,
+    "retrieval_hit_rate": 1.0,
+    "top1_hit_rate": 0.889,
+    "false_refusals": 0,
+    "number_match_rate (crude hint)": 0.938,
+    "by_category": {
+      "EN->EN": {
+        "n": 5,
+        "retrieval_hit_rate": 1.0,
+        "top1_hit_rate": 1.0
+      },
+      "EN->FR": {
+        "n": 4,
+        "retrieval_hit_rate": 1.0,
+        "top1_hit_rate": 0.75
+      },
+      "FR->EN": {
+        "n": 4,
+        "retrieval_hit_rate": 1.0,
+        "top1_hit_rate": 1.0
+      },
+      "FR->FR": {
+        "n": 5,
+        "retrieval_hit_rate": 1.0,
+        "top1_hit_rate": 0.8
+      }
+    },
+    "by_split": {
+      "calibration": {
+        "n": 10,
+        "retrieval_hit_rate": 1.0,
+        "top1_hit_rate": 0.9
+      },
+      "holdout": {
+        "n": 8,
+        "retrieval_hit_rate": 1.0,
+        "top1_hit_rate": 0.875
+      }
+    },
+    "unanswerable_questions": 6,
+    "unanswerable_refused_by_threshold": 0,
+    "unanswerable_needing_manual_review": 6,
+    "avg_retrieval_time_s": 0.096,
+    "avg_generation_time_s": 0.577
+  },
+  "rows": [
+    {
+      "id": "q1",
+      "category": "FR->FR",
+      "split": "calibration",
+      "question": "Combien de jours de congé ai-je après 3 ans d'ancienneté ?",
+      "expected_answer": "22 jours",
+      "system_answer": "Après 3 ans d'ancienneté, vous avez droit à **22 jours de congé** par an.",
+      "top_distance": 2.982,
+      "retrieved_docs": "politique_conges.docx | vacation_policy.docx | vacation_policy.docx",
+      "retrieval_time_s": 0.13,
+      "generation_time_s": 1.068,
+      "retrieval_hit": true,
+      "top1_hit": true,
+      "false_refusal": false,
+      "number_match": true,
+      "unanswerable_result": null,
+      "retrieved_contexts": [
+        "Ancienneté | Jours de congé par an\n0 à 2 ans | 18 jours\n2 à 5 ans | 22 jours\n5 ans et plus | 27 jours",
+        "Years of Service | Vacation Days per Year\n0-2 years | 18 days\n2-5 years | 22 days\n5+ years | 27 days",
+        "Unused vacation days may be carried over to the following year, up to a maximum of 5 days. Any remaining unused days beyond this cap are forfeited at year-end, except where local labor law requires otherwise.\nVacation requests must be submitted at least 2 weeks in advance through the HR portal and are subject to manager approval based on team staffing needs."
+      ]
+    },
+    {
+      "id": "q2",
+      "category": "FR->FR",
+      "split": "calibration",
+      "question": "Combien de jours par semaine puis-je télétravailler ?",
+      "expected_answer": "3 jours par semaine",
+      "system_answer": "Vous pouvez télétravailler jusqu’à **trois jours par semaine**.",
+      "top_distance": 6.194,
+      "retrieved_docs": "politique_teletravail.pdf | politique_conges.docx | politique_conges.docx",
+      "retrieval_time_s": 0.08,
+      "generation_time_s": 0.469,
+      "retrieval_hit": true,
+      "top1_hit": true,
+      "false_refusal": false,
+      "number_match": false,
+      "unanswerable_result": null,
+      "retrieved_contexts": [
+        "Manuel de l'employé FakeCorp\nPolitique de télétravail\nLe télétravail est ouvert à tous les salariés à temps plein de FakeCorp, une fois leur période d'essai de\n90 jours terminée.\nUn salarié peut télétravailler jusqu'à trois jours par semaine. Pour passer en télétravail complet, il faut\nobtenir l'accord écrit de son supérieur hiérarchique direct et du service des ressources humaines.\nPendant ses jours de télétravail, le salarié doit rester joignable de 10h00 à 16h00, du lundi au vendredi.\nFakeCor",
+        "Ancienneté | Jours de congé par an\n0 à 2 ans | 18 jours\n2 à 5 ans | 22 jours\n5 ans et plus | 27 jours",
+        "Les jours non pris peuvent être reportés sur l'année suivante, dans la limite de 5 jours. Au-delà, les jours restants sont perdus au 31 décembre, sauf si la législation locale du travail en dispose autrement.\nToute demande de congé doit être déposée sur le portail RH au moins deux semaines avant la date souhaitée, et son acceptation dépend des besoins de l'équipe."
+      ]
+    },
+    {
+      "id": "q3",
+      "category": "FR->FR",
+      "split": "calibration",
+      "question": "Combien de jours de congé peut-on reporter à l'année suivante ?",
+      "expected_answer": "5 jours maximum",
+      "system_answer": "On peut reporter jusqu'à **5 jours** de congé à l'année suivante.",
+      "top_distance": 3.168,
+      "retrieved_docs": "politique_conges.docx | politique_conges.docx | vacation_policy.docx",
+      "retrieval_time_s": 0.095,
+      "generation_time_s": 0.619,
+      "retrieval_hit": true,
+      "top1_hit": true,
+      "false_refusal": false,
+      "number_match": true,
+      "unanswerable_result": null,
+      "retrieved_contexts": [
+        "Les jours non pris peuvent être reportés sur l'année suivante, dans la limite de 5 jours. Au-delà, les jours restants sont perdus au 31 décembre, sauf si la législation locale du travail en dispose autrement.\nToute demande de congé doit être déposée sur le portail RH au moins deux semaines avant la date souhaitée, et son acceptation dépend des besoins de l'équipe.",
+        "Ancienneté | Jours de congé par an\n0 à 2 ans | 18 jours\n2 à 5 ans | 22 jours\n5 ans et plus | 27 jours",
+        "Unused vacation days may be carried over to the following year, up to a maximum of 5 days. Any remaining unused days beyond this cap are forfeited at year-end, except where local labor law requires otherwise.\nVacation requests must be submitted at least 2 weeks in advance through the HR portal and are subject to manager approval based on team staffing needs."
+      ]
+    },
+    {
+      "id": "q4",
+      "category": "EN->EN",
+      "split": "calibration",
+      "question": "How many vacation days does someone with 6 years of service get?",
+      "expected_answer": "27 days",
+      "system_answer": "They receive **27 vacation days per year**.",
+      "top_distance": 3.191,
+      "retrieved_docs": "vacation_policy.docx | politique_conges.docx | vacation_policy.docx",
+      "retrieval_time_s": 0.086,
+      "generation_time_s": 0.521,
+      "retrieval_hit": true,
+      "top1_hit": true,
+      "false_refusal": false,
+      "number_match": true,
+      "unanswerable_result": null,
+      "retrieved_contexts": [
+        "Years of Service | Vacation Days per Year\n0-2 years | 18 days\n2-5 years | 22 days\n5+ years | 27 days",
+        "Ancienneté | Jours de congé par an\n0 à 2 ans | 18 jours\n2 à 5 ans | 22 jours\n5 ans et plus | 27 jours",
+        "Unused vacation days may be carried over to the following year, up to a maximum of 5 days. Any remaining unused days beyond this cap are forfeited at year-end, except where local labor law requires otherwise.\nVacation requests must be submitted at least 2 weeks in advance through the HR portal and are subject to manager approval based on team staffing needs."
+      ]
+    },
+    {
+      "id": "q5",
+      "category": "EN->EN",
+      "split": "calibration",
+      "question": "What are the core hours I must be available when working remotely?",
+      "expected_answer": "10:00 AM to 4:00 PM, Monday to Friday",
+      "system_answer": "The core hours are 10:00 AM to 4:00 PM local time, Monday through Friday.",
+      "top_distance": 6.107,
+      "retrieved_docs": "remote_work_policy.pdf | politique_teletravail.pdf | politique_teletravail.pdf",
+      "retrieval_time_s": 0.092,
+      "generation_time_s": 0.433,
+      "retrieval_hit": true,
+      "top1_hit": true,
+      "false_refusal": false,
+      "number_match": true,
+      "unanswerable_result": null,
+      "retrieved_contexts": [
+        "FakeCorp Employee Handbook\nRemote Work Policy\nFakeCorp supports flexible remote work arrangements for all full-time employees who have completed\ntheir initial 90-day probationary period.\nEmployees may work remotely up to 3 days per week. Any request for full-time remote work must be\napproved in writing by the employee's direct manager and the HR department.\nRemote employees are expected to be available during core hours, defined as 10:00 AM to 4:00 PM\nlocal time, Monday through Friday.\nFakeCorp",
+        "as les postes qui exigent une présence sur site, comme le personnel\nd'entrepôt et de maintenance.\nSi les horaires de disponibilité ne sont pas respectés, le responsable peut réexaminer le droit au\ntélétravail du salarié.",
+        "Manuel de l'employé FakeCorp\nPolitique de télétravail\nLe télétravail est ouvert à tous les salariés à temps plein de FakeCorp, une fois leur période d'essai de\n90 jours terminée.\nUn salarié peut télétravailler jusqu'à trois jours par semaine. Pour passer en télétravail complet, il faut\nobtenir l'accord écrit de son supérieur hiérarchique direct et du service des ressources humaines.\nPendant ses jours de télétravail, le salarié doit rester joignable de 10h00 à 16h00, du lundi au vendredi.\nFakeCor"
+      ]
+    },
+    {
+      "id": "q6",
+      "category": "EN->EN",
+      "split": "calibration",
+      "question": "How much is the home office stipend for new remote employees?",
+      "expected_answer": "300 EUR, one-time",
+      "system_answer": "The home office stipend is **300 EUR**.",
+      "top_distance": 5.987,
+      "retrieved_docs": "remote_work_policy.pdf | remote_work_policy.pdf | politique_teletravail.pdf",
+      "retrieval_time_s": 0.084,
+      "generation_time_s": 0.557,
+      "retrieval_hit": true,
+      "top1_hit": true,
+      "false_refusal": false,
+      "number_match": true,
+      "unanswerable_result": null,
+      "retrieved_contexts": [
+        "00 PM\nlocal time, Monday through Friday.\nFakeCorp provides a one-time home office stipend of 300 EUR for new remote employees, intended to\ncover equipment such as a monitor, chair, or desk.\nEmployees working remotely from a country other than their country of employment for more than 15\nconsecutive days must notify HR in advance, due to potential tax and legal implications.\nThis policy does not apply to roles classified as 'on-site required', including warehouse and facilities\nstaff.\nViolation o",
+        "FakeCorp Employee Handbook\nRemote Work Policy\nFakeCorp supports flexible remote work arrangements for all full-time employees who have completed\ntheir initial 90-day probationary period.\nEmployees may work remotely up to 3 days per week. Any request for full-time remote work must be\napproved in writing by the employee's direct manager and the HR department.\nRemote employees are expected to be available during core hours, defined as 10:00 AM to 4:00 PM\nlocal time, Monday through Friday.\nFakeCorp",
+        "le de 10h00 à 16h00, du lundi au vendredi.\nFakeCorp verse une indemnité unique de 300 euros aux nouveaux télétravailleurs afin de financer leur\néquipement : écran, fauteuil ou bureau.\nTout salarié qui souhaite télétravailler depuis un autre pays que celui de son contrat pendant plus de 15\njours consécutifs doit prévenir les ressources humaines au préalable, en raison des conséquences\nfiscales et juridiques possibles.\nCette politique ne concerne pas les postes qui exigent une présence sur site, c"
+      ]
+    },
+    {
+      "id": "q7",
+      "category": "FR->EN",
+      "split": "calibration",
+      "question": "Quel est le plafond de remboursement des repas pendant un déplacement professionnel ?",
+      "expected_answer": "25 euros par jour",
+      "system_answer": "Le plafond de remboursement des repas pendant un déplacement professionnel est de **25 EUR par jour**.",
+      "top_distance": 5.779,
+      "retrieved_docs": "expense_reimbursement_policy.pdf | politique_teletravail.pdf | politique_teletravail.pdf",
+      "retrieval_time_s": 0.121,
+      "generation_time_s": 0.655,
+      "retrieval_hit": true,
+      "top1_hit": true,
+      "false_refusal": false,
+      "number_match": true,
+      "unanswerable_result": null,
+      "retrieved_contexts": [
+        "FakeCorp Employee Handbook\nExpense Reimbursement Policy\nFakeCorp reimburses reasonable business expenses incurred by employees while traveling for work,\nprovided the expenses follow the rules described in this policy.\nMeals during business travel are reimbursed up to a maximum of 25 EUR per day. Hotel\naccommodation is reimbursed up to 120 EUR per night.\nA receipt must be attached for every expense above 15 EUR. Expenses without a required receipt will\nnot be reimbursed.\nEmployees must submit the",
+        "le de 10h00 à 16h00, du lundi au vendredi.\nFakeCorp verse une indemnité unique de 300 euros aux nouveaux télétravailleurs afin de financer leur\néquipement : écran, fauteuil ou bureau.\nTout salarié qui souhaite télétravailler depuis un autre pays que celui de son contrat pendant plus de 15\njours consécutifs doit prévenir les ressources humaines au préalable, en raison des conséquences\nfiscales et juridiques possibles.\nCette politique ne concerne pas les postes qui exigent une présence sur site, c",
+        "as les postes qui exigent une présence sur site, comme le personnel\nd'entrepôt et de maintenance.\nSi les horaires de disponibilité ne sont pas respectés, le responsable peut réexaminer le droit au\ntélétravail du salarié."
+      ]
+    },
+    {
+      "id": "q8",
+      "category": "FR->EN",
+      "split": "calibration",
+      "question": "Dans quel délai dois-je soumettre ma note de frais ?",
+      "expected_answer": "Dans les 30 jours suivant la dépense",
+      "system_answer": "Vous devez soumettre votre note de frais dans les **30 jours** suivant la dépense.",
+      "top_distance": 5.237,
+      "retrieved_docs": "expense_reimbursement_policy.pdf | politique_formation.docx | politique_conges.docx",
+      "retrieval_time_s": 0.107,
+      "generation_time_s": 0.649,
+      "retrieval_hit": true,
+      "top1_hit": true,
+      "false_refusal": false,
+      "number_match": true,
+      "unanswerable_result": null,
+      "retrieved_contexts": [
+        "will\nnot be reimbursed.\nEmployees must submit their expense claim within 30 days of the expense. Claims submitted after this\ndeadline may be rejected.\nApproved claims are paid within 10 business days of approval.\nFlights shorter than 6 hours must be booked in economy class. Any single expense above 500 EUR\nrequires written approval from a manager before it is incurred.",
+        "e avec le responsable. Toute demande doit être déposée au moins 4 semaines avant le début de la formation.\nLorsque FakeCorp finance une formation et que le salarié quitte l'entreprise dans les 12 mois qui suivent, il doit rembourser une partie des frais, calculée au prorata des mois restants sur cette période de 12 mois.\nPour les formations qui se terminent par un examen de certification, FakeCorp prend en charge les frais d'une seule tentative.",
+        "Les jours non pris peuvent être reportés sur l'année suivante, dans la limite de 5 jours. Au-delà, les jours restants sont perdus au 31 décembre, sauf si la législation locale du travail en dispose autrement.\nToute demande de congé doit être déposée sur le portail RH au moins deux semaines avant la date souhaitée, et son acceptation dépend des besoins de l'équipe."
+      ]
+    },
+    {
+      "id": "q9",
+      "category": "EN->FR",
+      "split": "calibration",
+      "question": "How many training days is each employee entitled to per year?",
+      "expected_answer": "5 days per year",
+      "system_answer": "Each full‑time employee is entitled to **5 training days per year**.",
+      "top_distance": 6.582,
+      "retrieved_docs": "vacation_policy.docx | politique_formation.docx | politique_formation.docx",
+      "retrieval_time_s": 0.078,
+      "generation_time_s": 0.424,
+      "retrieval_hit": true,
+      "top1_hit": false,
+      "false_refusal": false,
+      "number_match": true,
+      "unanswerable_result": null,
+      "retrieved_contexts": [
+        "Years of Service | Vacation Days per Year\n0-2 years | 18 days\n2-5 years | 22 days\n5+ years | 27 days",
+        "Manuel de l'employé FakeCorp\nPolitique de formation\nFakeCorp encourage le développement des compétences de ses salariés. Chaque salarié à temps plein a droit à 5 jours de formation par an, pris sur le temps de travail.\nUn budget annuel de 1 200 euros par salarié est prévu pour financer les frais de formation (inscription, supports, déplacement).\nLa formation demandée doit être directement liée au poste occupé ou à une évolution de carrière validée avec le responsable. Toute demande doit être dép",
+        "e avec le responsable. Toute demande doit être déposée au moins 4 semaines avant le début de la formation.\nLorsque FakeCorp finance une formation et que le salarié quitte l'entreprise dans les 12 mois qui suivent, il doit rembourser une partie des frais, calculée au prorata des mois restants sur cette période de 12 mois.\nPour les formations qui se terminent par un examen de certification, FakeCorp prend en charge les frais d'une seule tentative."
+      ]
+    },
+    {
+      "id": "q10",
+      "category": "EN->FR",
+      "split": "calibration",
+      "question": "Do I have to pay back training costs if I leave the company soon after a training?",
+      "expected_answer": "Yes, if you leave within 12 months of the training, you repay part of the cost, prorated to the months remaining in that 12-month period",
+      "system_answer": "Yes. If you leave FakeCorp within 12 months of a training it financed, you must reimburse a portion of the costs, calculated proportionally to the remaining months of that 12‑month period.",
+      "top_distance": 5.658,
+      "retrieved_docs": "politique_formation.docx | politique_formation.docx | politique_teletravail.pdf",
+      "retrieval_time_s": 0.179,
+      "generation_time_s": 0.64,
+      "retrieval_hit": true,
+      "top1_hit": true,
+      "false_refusal": false,
+      "number_match": true,
+      "unanswerable_result": null,
+      "retrieved_contexts": [
+        "e avec le responsable. Toute demande doit être déposée au moins 4 semaines avant le début de la formation.\nLorsque FakeCorp finance une formation et que le salarié quitte l'entreprise dans les 12 mois qui suivent, il doit rembourser une partie des frais, calculée au prorata des mois restants sur cette période de 12 mois.\nPour les formations qui se terminent par un examen de certification, FakeCorp prend en charge les frais d'une seule tentative.",
+        "Manuel de l'employé FakeCorp\nPolitique de formation\nFakeCorp encourage le développement des compétences de ses salariés. Chaque salarié à temps plein a droit à 5 jours de formation par an, pris sur le temps de travail.\nUn budget annuel de 1 200 euros par salarié est prévu pour financer les frais de formation (inscription, supports, déplacement).\nLa formation demandée doit être directement liée au poste occupé ou à une évolution de carrière validée avec le responsable. Toute demande doit être dép",
+        "le de 10h00 à 16h00, du lundi au vendredi.\nFakeCorp verse une indemnité unique de 300 euros aux nouveaux télétravailleurs afin de financer leur\néquipement : écran, fauteuil ou bureau.\nTout salarié qui souhaite télétravailler depuis un autre pays que celui de son contrat pendant plus de 15\njours consécutifs doit prévenir les ressources humaines au préalable, en raison des conséquences\nfiscales et juridiques possibles.\nCette politique ne concerne pas les postes qui exigent une présence sur site, c"
+      ]
+    },
+    {
+      "id": "q11",
+      "category": "unanswerable",
+      "split": "calibration",
+      "question": "What is the company's policy on annual bonuses?",
+      "expected_answer": "I don't know based on the available documents.",
+      "system_answer": "The provided context does not contain any information about the company's policy on annual bonuses.",
+      "top_distance": 8.682,
+      "retrieved_docs": "politique_conges.docx | politique_teletravail.pdf | politique_teletravail.pdf",
+      "retrieval_time_s": 0.076,
+      "generation_time_s": 0.696,
+      "retrieval_hit": null,
+      "top1_hit": null,
+      "false_refusal": null,
+      "number_match": null,
+      "unanswerable_result": "REVIEW_MANUALLY",
+      "retrieved_contexts": [
+        "Manuel de l'employé FakeCorp\nPolitique de congés payés\nTous les salariés à temps plein de FakeCorp bénéficient de congés payés. Le nombre de jours acquis chaque année augmente avec l'ancienneté, selon le barème ci-dessous.",
+        "le de 10h00 à 16h00, du lundi au vendredi.\nFakeCorp verse une indemnité unique de 300 euros aux nouveaux télétravailleurs afin de financer leur\néquipement : écran, fauteuil ou bureau.\nTout salarié qui souhaite télétravailler depuis un autre pays que celui de son contrat pendant plus de 15\njours consécutifs doit prévenir les ressources humaines au préalable, en raison des conséquences\nfiscales et juridiques possibles.\nCette politique ne concerne pas les postes qui exigent une présence sur site, c",
+        "as les postes qui exigent une présence sur site, comme le personnel\nd'entrepôt et de maintenance.\nSi les horaires de disponibilité ne sont pas respectés, le responsable peut réexaminer le droit au\ntélétravail du salarié."
+      ]
+    },
+    {
+      "id": "q12",
+      "category": "unanswerable",
+      "split": "calibration",
+      "question": "Quelle est la politique de l'entreprise sur les voitures de fonction ?",
+      "expected_answer": "I don't know based on the available documents.",
+      "system_answer": "Le contexte fourni ne contient aucune information concernant la politique de l’entreprise relative aux voitures de fonction.",
+      "top_distance": 7.317,
+      "retrieved_docs": "politique_teletravail.pdf | politique_teletravail.pdf | remote_work_policy.pdf",
+      "retrieval_time_s": 0.075,
+      "generation_time_s": 0.639,
+      "retrieval_hit": null,
+      "top1_hit": null,
+      "false_refusal": null,
+      "number_match": null,
+      "unanswerable_result": "REVIEW_MANUALLY",
+      "retrieved_contexts": [
+        "le de 10h00 à 16h00, du lundi au vendredi.\nFakeCorp verse une indemnité unique de 300 euros aux nouveaux télétravailleurs afin de financer leur\néquipement : écran, fauteuil ou bureau.\nTout salarié qui souhaite télétravailler depuis un autre pays que celui de son contrat pendant plus de 15\njours consécutifs doit prévenir les ressources humaines au préalable, en raison des conséquences\nfiscales et juridiques possibles.\nCette politique ne concerne pas les postes qui exigent une présence sur site, c",
+        "as les postes qui exigent une présence sur site, comme le personnel\nd'entrepôt et de maintenance.\nSi les horaires de disponibilité ne sont pas respectés, le responsable peut réexaminer le droit au\ntélétravail du salarié.",
+        "luding warehouse and facilities\nstaff.\nViolation of availability expectations may result in a review of the employee's remote work privileges by\ntheir manager."
+      ]
+    },
+    {
+      "id": "q13",
+      "category": "FR->FR",
+      "split": "holdout",
+      "question": "Quel préavis faut-il respecter pour poser des vacances ?",
+      "expected_answer": "Au moins deux semaines avant la date souhaitée, via le portail RH",
+      "system_answer": "Il faut soumettre la demande de congés au moins 2 semaines à l’avance via le portail RH.",
+      "top_distance": 7.168,
+      "retrieved_docs": "politique_teletravail.pdf | vacation_policy.docx | vacation_policy.docx",
+      "retrieval_time_s": 0.085,
+      "generation_time_s": 0.57,
+      "retrieval_hit": true,
+      "top1_hit": false,
+      "false_refusal": false,
+      "number_match": null,
+      "unanswerable_result": null,
+      "retrieved_contexts": [
+        "le de 10h00 à 16h00, du lundi au vendredi.\nFakeCorp verse une indemnité unique de 300 euros aux nouveaux télétravailleurs afin de financer leur\néquipement : écran, fauteuil ou bureau.\nTout salarié qui souhaite télétravailler depuis un autre pays que celui de son contrat pendant plus de 15\njours consécutifs doit prévenir les ressources humaines au préalable, en raison des conséquences\nfiscales et juridiques possibles.\nCette politique ne concerne pas les postes qui exigent une présence sur site, c",
+        "Unused vacation days may be carried over to the following year, up to a maximum of 5 days. Any remaining unused days beyond this cap are forfeited at year-end, except where local labor law requires otherwise.\nVacation requests must be submitted at least 2 weeks in advance through the HR portal and are subject to manager approval based on team staffing needs.",
+        "FakeCorp Employee Handbook\nVacation Policy\nFakeCorp provides paid vacation leave to all full-time employees. The number of vacation days accrued per year depends on length of service, as outlined below."
+      ]
+    },
+    {
+      "id": "q14",
+      "category": "FR->FR",
+      "split": "holdout",
+      "question": "Dois-je prévenir les RH si je télétravaille depuis un autre pays pendant 20 jours consécutifs ?",
+      "expected_answer": "Oui, au-delà de 15 jours consécutifs depuis un autre pays, il faut prévenir les ressources humaines à l'avance",
+      "system_answer": "Oui. Tout salarié qui souhaite télétravailler depuis un autre pays que celui de son contrat pendant plus de 15 jours consécutifs doit prévenir les ressources humaines au préalable.",
+      "top_distance": 4.342,
+      "retrieved_docs": "politique_teletravail.pdf | politique_teletravail.pdf | politique_conges.docx",
+      "retrieval_time_s": 0.096,
+      "generation_time_s": 0.581,
+      "retrieval_hit": true,
+      "top1_hit": true,
+      "false_refusal": false,
+      "number_match": true,
+      "unanswerable_result": null,
+      "retrieved_contexts": [
+        "le de 10h00 à 16h00, du lundi au vendredi.\nFakeCorp verse une indemnité unique de 300 euros aux nouveaux télétravailleurs afin de financer leur\néquipement : écran, fauteuil ou bureau.\nTout salarié qui souhaite télétravailler depuis un autre pays que celui de son contrat pendant plus de 15\njours consécutifs doit prévenir les ressources humaines au préalable, en raison des conséquences\nfiscales et juridiques possibles.\nCette politique ne concerne pas les postes qui exigent une présence sur site, c",
+        "as les postes qui exigent une présence sur site, comme le personnel\nd'entrepôt et de maintenance.\nSi les horaires de disponibilité ne sont pas respectés, le responsable peut réexaminer le droit au\ntélétravail du salarié.",
+        "Les jours non pris peuvent être reportés sur l'année suivante, dans la limite de 5 jours. Au-delà, les jours restants sont perdus au 31 décembre, sauf si la législation locale du travail en dispose autrement.\nToute demande de congé doit être déposée sur le portail RH au moins deux semaines avant la date souhaitée, et son acceptation dépend des besoins de l'équipe."
+      ]
+    },
+    {
+      "id": "q15",
+      "category": "EN->EN",
+      "split": "holdout",
+      "question": "Does the remote work policy apply to warehouse staff?",
+      "expected_answer": "No, it does not apply to on-site required roles such as warehouse and facilities staff",
+      "system_answer": "No. The policy excludes positions that require on‑site presence, such as warehouse staff.",
+      "top_distance": 3.528,
+      "retrieved_docs": "remote_work_policy.pdf | politique_teletravail.pdf | remote_work_policy.pdf",
+      "retrieval_time_s": 0.07,
+      "generation_time_s": 0.779,
+      "retrieval_hit": true,
+      "top1_hit": true,
+      "false_refusal": false,
+      "number_match": null,
+      "unanswerable_result": null,
+      "retrieved_contexts": [
+        "luding warehouse and facilities\nstaff.\nViolation of availability expectations may result in a review of the employee's remote work privileges by\ntheir manager.",
+        "as les postes qui exigent une présence sur site, comme le personnel\nd'entrepôt et de maintenance.\nSi les horaires de disponibilité ne sont pas respectés, le responsable peut réexaminer le droit au\ntélétravail du salarié.",
+        "FakeCorp Employee Handbook\nRemote Work Policy\nFakeCorp supports flexible remote work arrangements for all full-time employees who have completed\ntheir initial 90-day probationary period.\nEmployees may work remotely up to 3 days per week. Any request for full-time remote work must be\napproved in writing by the employee's direct manager and the HR department.\nRemote employees are expected to be available during core hours, defined as 10:00 AM to 4:00 PM\nlocal time, Monday through Friday.\nFakeCorp"
+      ]
+    },
+    {
+      "id": "q16",
+      "category": "EN->EN",
+      "split": "holdout",
+      "question": "Can I carry over 8 unused vacation days to next year?",
+      "expected_answer": "No, at most 5 days can be carried over; the rest are forfeited at year-end unless local labor law requires otherwise",
+      "system_answer": "No. Only up to 5 unused vacation days can be carried over; any days beyond that (e.g., 3 of the 8) are forfeited unless local labor law says otherwise.",
+      "top_distance": 4.251,
+      "retrieved_docs": "vacation_policy.docx | politique_conges.docx | politique_conges.docx",
+      "retrieval_time_s": 0.07,
+      "generation_time_s": 0.562,
+      "retrieval_hit": true,
+      "top1_hit": true,
+      "false_refusal": false,
+      "number_match": true,
+      "unanswerable_result": null,
+      "retrieved_contexts": [
+        "Unused vacation days may be carried over to the following year, up to a maximum of 5 days. Any remaining unused days beyond this cap are forfeited at year-end, except where local labor law requires otherwise.\nVacation requests must be submitted at least 2 weeks in advance through the HR portal and are subject to manager approval based on team staffing needs.",
+        "Ancienneté | Jours de congé par an\n0 à 2 ans | 18 jours\n2 à 5 ans | 22 jours\n5 ans et plus | 27 jours",
+        "Les jours non pris peuvent être reportés sur l'année suivante, dans la limite de 5 jours. Au-delà, les jours restants sont perdus au 31 décembre, sauf si la législation locale du travail en dispose autrement.\nToute demande de congé doit être déposée sur le portail RH au moins deux semaines avant la date souhaitée, et son acceptation dépend des besoins de l'équipe."
+      ]
+    },
+    {
+      "id": "q17",
+      "category": "FR->EN",
+      "split": "holdout",
+      "question": "Quel est le montant maximum remboursé pour une nuit d'hôtel ?",
+      "expected_answer": "120 euros par nuit",
+      "system_answer": "Le montant maximum remboursé pour une nuit d'hôtel est de 120 EUR.",
+      "top_distance": 8.705,
+      "retrieved_docs": "expense_reimbursement_policy.pdf | politique_teletravail.pdf | politique_teletravail.pdf",
+      "retrieval_time_s": 0.09,
+      "generation_time_s": 0.755,
+      "retrieval_hit": true,
+      "top1_hit": true,
+      "false_refusal": false,
+      "number_match": true,
+      "unanswerable_result": null,
+      "retrieved_contexts": [
+        "FakeCorp Employee Handbook\nExpense Reimbursement Policy\nFakeCorp reimburses reasonable business expenses incurred by employees while traveling for work,\nprovided the expenses follow the rules described in this policy.\nMeals during business travel are reimbursed up to a maximum of 25 EUR per day. Hotel\naccommodation is reimbursed up to 120 EUR per night.\nA receipt must be attached for every expense above 15 EUR. Expenses without a required receipt will\nnot be reimbursed.\nEmployees must submit the",
+        "le de 10h00 à 16h00, du lundi au vendredi.\nFakeCorp verse une indemnité unique de 300 euros aux nouveaux télétravailleurs afin de financer leur\néquipement : écran, fauteuil ou bureau.\nTout salarié qui souhaite télétravailler depuis un autre pays que celui de son contrat pendant plus de 15\njours consécutifs doit prévenir les ressources humaines au préalable, en raison des conséquences\nfiscales et juridiques possibles.\nCette politique ne concerne pas les postes qui exigent une présence sur site, c",
+        "as les postes qui exigent une présence sur site, comme le personnel\nd'entrepôt et de maintenance.\nSi les horaires de disponibilité ne sont pas respectés, le responsable peut réexaminer le droit au\ntélétravail du salarié."
+      ]
+    },
+    {
+      "id": "q18",
+      "category": "FR->EN",
+      "split": "holdout",
+      "question": "Mon billet d'avion pour un déplacement professionnel coûte 800 euros. Ai-je besoin de l'accord de mon manager avant de l'acheter ?",
+      "expected_answer": "Oui, toute dépense unique supérieure à 500 euros nécessite l'accord écrit préalable du manager",
+      "system_answer": "Oui. Tout frais unique supérieur à 500 EUR doit être approuvé par écrit par votre manager avant d’être engagé, donc votre billet de 800 EUR nécessite son accord préalable.",
+      "top_distance": 6.319,
+      "retrieved_docs": "expense_reimbursement_policy.pdf | politique_teletravail.pdf | expense_reimbursement_policy.pdf",
+      "retrieval_time_s": 0.231,
+      "generation_time_s": 0.492,
+      "retrieval_hit": true,
+      "top1_hit": true,
+      "false_refusal": false,
+      "number_match": true,
+      "unanswerable_result": null,
+      "retrieved_contexts": [
+        "will\nnot be reimbursed.\nEmployees must submit their expense claim within 30 days of the expense. Claims submitted after this\ndeadline may be rejected.\nApproved claims are paid within 10 business days of approval.\nFlights shorter than 6 hours must be booked in economy class. Any single expense above 500 EUR\nrequires written approval from a manager before it is incurred.",
+        "le de 10h00 à 16h00, du lundi au vendredi.\nFakeCorp verse une indemnité unique de 300 euros aux nouveaux télétravailleurs afin de financer leur\néquipement : écran, fauteuil ou bureau.\nTout salarié qui souhaite télétravailler depuis un autre pays que celui de son contrat pendant plus de 15\njours consécutifs doit prévenir les ressources humaines au préalable, en raison des conséquences\nfiscales et juridiques possibles.\nCette politique ne concerne pas les postes qui exigent une présence sur site, c",
+        "FakeCorp Employee Handbook\nExpense Reimbursement Policy\nFakeCorp reimburses reasonable business expenses incurred by employees while traveling for work,\nprovided the expenses follow the rules described in this policy.\nMeals during business travel are reimbursed up to a maximum of 25 EUR per day. Hotel\naccommodation is reimbursed up to 120 EUR per night.\nA receipt must be attached for every expense above 15 EUR. Expenses without a required receipt will\nnot be reimbursed.\nEmployees must submit the"
+      ]
+    },
+    {
+      "id": "q19",
+      "category": "EN->FR",
+      "split": "holdout",
+      "question": "What is the yearly training budget for each employee?",
+      "expected_answer": "1,200 euros per employee per year",
+      "system_answer": "The yearly training budget is **1 200 euros per employee**.",
+      "top_distance": 6.557,
+      "retrieved_docs": "politique_formation.docx | politique_formation.docx | politique_conges.docx",
+      "retrieval_time_s": 0.073,
+      "generation_time_s": 0.326,
+      "retrieval_hit": true,
+      "top1_hit": true,
+      "false_refusal": false,
+      "number_match": true,
+      "unanswerable_result": null,
+      "retrieved_contexts": [
+        "Manuel de l'employé FakeCorp\nPolitique de formation\nFakeCorp encourage le développement des compétences de ses salariés. Chaque salarié à temps plein a droit à 5 jours de formation par an, pris sur le temps de travail.\nUn budget annuel de 1 200 euros par salarié est prévu pour financer les frais de formation (inscription, supports, déplacement).\nLa formation demandée doit être directement liée au poste occupé ou à une évolution de carrière validée avec le responsable. Toute demande doit être dép",
+        "e avec le responsable. Toute demande doit être déposée au moins 4 semaines avant le début de la formation.\nLorsque FakeCorp finance une formation et que le salarié quitte l'entreprise dans les 12 mois qui suivent, il doit rembourser une partie des frais, calculée au prorata des mois restants sur cette période de 12 mois.\nPour les formations qui se terminent par un examen de certification, FakeCorp prend en charge les frais d'une seule tentative.",
+        "Manuel de l'employé FakeCorp\nPolitique de congés payés\nTous les salariés à temps plein de FakeCorp bénéficient de congés payés. Le nombre de jours acquis chaque année augmente avec l'ancienneté, selon le barème ci-dessous."
+      ]
+    },
+    {
+      "id": "q20",
+      "category": "EN->FR",
+      "split": "holdout",
+      "question": "How far in advance do I need to request a training?",
+      "expected_answer": "At least 4 weeks before the training starts",
+      "system_answer": "You must submit the training request at least **4 weeks** before the start of the training.",
+      "top_distance": 6.968,
+      "retrieved_docs": "politique_formation.docx | politique_formation.docx | politique_conges.docx",
+      "retrieval_time_s": 0.074,
+      "generation_time_s": 0.66,
+      "retrieval_hit": true,
+      "top1_hit": true,
+      "false_refusal": false,
+      "number_match": true,
+      "unanswerable_result": null,
+      "retrieved_contexts": [
+        "e avec le responsable. Toute demande doit être déposée au moins 4 semaines avant le début de la formation.\nLorsque FakeCorp finance une formation et que le salarié quitte l'entreprise dans les 12 mois qui suivent, il doit rembourser une partie des frais, calculée au prorata des mois restants sur cette période de 12 mois.\nPour les formations qui se terminent par un examen de certification, FakeCorp prend en charge les frais d'une seule tentative.",
+        "Manuel de l'employé FakeCorp\nPolitique de formation\nFakeCorp encourage le développement des compétences de ses salariés. Chaque salarié à temps plein a droit à 5 jours de formation par an, pris sur le temps de travail.\nUn budget annuel de 1 200 euros par salarié est prévu pour financer les frais de formation (inscription, supports, déplacement).\nLa formation demandée doit être directement liée au poste occupé ou à une évolution de carrière validée avec le responsable. Toute demande doit être dép",
+        "Les jours non pris peuvent être reportés sur l'année suivante, dans la limite de 5 jours. Au-delà, les jours restants sont perdus au 31 décembre, sauf si la législation locale du travail en dispose autrement.\nToute demande de congé doit être déposée sur le portail RH au moins deux semaines avant la date souhaitée, et son acceptation dépend des besoins de l'équipe."
+      ]
+    },
+    {
+      "id": "q21",
+      "category": "unanswerable",
+      "split": "calibration",
+      "question": "How many sick days am I entitled to per year?",
+      "expected_answer": "I don't know based on the available documents.",
+      "system_answer": "The provided context does not contain information about sick‑day entitlement.",
+      "top_distance": 5.644,
+      "retrieved_docs": "politique_conges.docx | vacation_policy.docx | vacation_policy.docx",
+      "retrieval_time_s": 0.085,
+      "generation_time_s": 0.433,
+      "retrieval_hit": null,
+      "top1_hit": null,
+      "false_refusal": null,
+      "number_match": null,
+      "unanswerable_result": "REVIEW_MANUALLY",
+      "retrieved_contexts": [
+        "Ancienneté | Jours de congé par an\n0 à 2 ans | 18 jours\n2 à 5 ans | 22 jours\n5 ans et plus | 27 jours",
+        "Unused vacation days may be carried over to the following year, up to a maximum of 5 days. Any remaining unused days beyond this cap are forfeited at year-end, except where local labor law requires otherwise.\nVacation requests must be submitted at least 2 weeks in advance through the HR portal and are subject to manager approval based on team staffing needs.",
+        "Years of Service | Vacation Days per Year\n0-2 years | 18 days\n2-5 years | 22 days\n5+ years | 27 days"
+      ]
+    },
+    {
+      "id": "q22",
+      "category": "unanswerable",
+      "split": "calibration",
+      "question": "Quel est le code vestimentaire à respecter en télétravail ?",
+      "expected_answer": "I don't know based on the available documents.",
+      "system_answer": "Le contexte fourni ne mentionne aucun code vestimentaire à respecter en télétravail.",
+      "top_distance": 7.373,
+      "retrieved_docs": "politique_teletravail.pdf | politique_teletravail.pdf | politique_teletravail.pdf",
+      "retrieval_time_s": 0.072,
+      "generation_time_s": 0.577,
+      "retrieval_hit": null,
+      "top1_hit": null,
+      "false_refusal": null,
+      "number_match": null,
+      "unanswerable_result": "REVIEW_MANUALLY",
+      "retrieved_contexts": [
+        "as les postes qui exigent une présence sur site, comme le personnel\nd'entrepôt et de maintenance.\nSi les horaires de disponibilité ne sont pas respectés, le responsable peut réexaminer le droit au\ntélétravail du salarié.",
+        "le de 10h00 à 16h00, du lundi au vendredi.\nFakeCorp verse une indemnité unique de 300 euros aux nouveaux télétravailleurs afin de financer leur\néquipement : écran, fauteuil ou bureau.\nTout salarié qui souhaite télétravailler depuis un autre pays que celui de son contrat pendant plus de 15\njours consécutifs doit prévenir les ressources humaines au préalable, en raison des conséquences\nfiscales et juridiques possibles.\nCette politique ne concerne pas les postes qui exigent une présence sur site, c",
+        "Manuel de l'employé FakeCorp\nPolitique de télétravail\nLe télétravail est ouvert à tous les salariés à temps plein de FakeCorp, une fois leur période d'essai de\n90 jours terminée.\nUn salarié peut télétravailler jusqu'à trois jours par semaine. Pour passer en télétravail complet, il faut\nobtenir l'accord écrit de son supérieur hiérarchique direct et du service des ressources humaines.\nPendant ses jours de télétravail, le salarié doit rester joignable de 10h00 à 16h00, du lundi au vendredi.\nFakeCor"
+      ]
+    },
+    {
+      "id": "q23",
+      "category": "unanswerable",
+      "split": "holdout",
+      "question": "Does the company reimburse mileage when I use my personal car for a business trip?",
+      "expected_answer": "I don't know based on the available documents.",
+      "system_answer": "The provided context does not contain any information about mileage reimbursement for personal car use.",
+      "top_distance": 6.996,
+      "retrieved_docs": "politique_teletravail.pdf | expense_reimbursement_policy.pdf | politique_teletravail.pdf",
+      "retrieval_time_s": 0.093,
+      "generation_time_s": 0.296,
+      "retrieval_hit": null,
+      "top1_hit": null,
+      "false_refusal": null,
+      "number_match": null,
+      "unanswerable_result": "REVIEW_MANUALLY",
+      "retrieved_contexts": [
+        "le de 10h00 à 16h00, du lundi au vendredi.\nFakeCorp verse une indemnité unique de 300 euros aux nouveaux télétravailleurs afin de financer leur\néquipement : écran, fauteuil ou bureau.\nTout salarié qui souhaite télétravailler depuis un autre pays que celui de son contrat pendant plus de 15\njours consécutifs doit prévenir les ressources humaines au préalable, en raison des conséquences\nfiscales et juridiques possibles.\nCette politique ne concerne pas les postes qui exigent une présence sur site, c",
+        "FakeCorp Employee Handbook\nExpense Reimbursement Policy\nFakeCorp reimburses reasonable business expenses incurred by employees while traveling for work,\nprovided the expenses follow the rules described in this policy.\nMeals during business travel are reimbursed up to a maximum of 25 EUR per day. Hotel\naccommodation is reimbursed up to 120 EUR per night.\nA receipt must be attached for every expense above 15 EUR. Expenses without a required receipt will\nnot be reimbursed.\nEmployees must submit the",
+        "as les postes qui exigent une présence sur site, comme le personnel\nd'entrepôt et de maintenance.\nSi les horaires de disponibilité ne sont pas respectés, le responsable peut réexaminer le droit au\ntélétravail du salarié."
+      ]
+    },
+    {
+      "id": "q24",
+      "category": "unanswerable",
+      "split": "holdout",
+      "question": "Le budget de formation non utilisé peut-il être reporté sur l'année suivante ?",
+      "expected_answer": "I don't know based on the available documents.",
+      "system_answer": "Le contexte ne précise pas si le budget de formation non utilisé peut être reporté à l'année suivante.",
+      "top_distance": 5.402,
+      "retrieved_docs": "politique_formation.docx | politique_formation.docx | politique_teletravail.pdf",
+      "retrieval_time_s": 0.074,
+      "generation_time_s": 0.45,
+      "retrieval_hit": null,
+      "top1_hit": null,
+      "false_refusal": null,
+      "number_match": null,
+      "unanswerable_result": "REVIEW_MANUALLY",
+      "retrieved_contexts": [
+        "e avec le responsable. Toute demande doit être déposée au moins 4 semaines avant le début de la formation.\nLorsque FakeCorp finance une formation et que le salarié quitte l'entreprise dans les 12 mois qui suivent, il doit rembourser une partie des frais, calculée au prorata des mois restants sur cette période de 12 mois.\nPour les formations qui se terminent par un examen de certification, FakeCorp prend en charge les frais d'une seule tentative.",
+        "Manuel de l'employé FakeCorp\nPolitique de formation\nFakeCorp encourage le développement des compétences de ses salariés. Chaque salarié à temps plein a droit à 5 jours de formation par an, pris sur le temps de travail.\nUn budget annuel de 1 200 euros par salarié est prévu pour financer les frais de formation (inscription, supports, déplacement).\nLa formation demandée doit être directement liée au poste occupé ou à une évolution de carrière validée avec le responsable. Toute demande doit être dép",
+        "le de 10h00 à 16h00, du lundi au vendredi.\nFakeCorp verse une indemnité unique de 300 euros aux nouveaux télétravailleurs afin de financer leur\néquipement : écran, fauteuil ou bureau.\nTout salarié qui souhaite télétravailler depuis un autre pays que celui de son contrat pendant plus de 15\njours consécutifs doit prévenir les ressources humaines au préalable, en raison des conséquences\nfiscales et juridiques possibles.\nCette politique ne concerne pas les postes qui exigent une présence sur site, c"
+      ]
+    }
+  ]
+}
