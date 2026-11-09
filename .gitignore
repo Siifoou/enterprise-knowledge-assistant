@@ -5,3 +5,4 @@ llm_cache.json
 chroma_data/
 __pycache__/
 venv-eval/
+.pytest_cache/
