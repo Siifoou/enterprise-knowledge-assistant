@@ -54,6 +54,8 @@ for item in dataset:
         "retrieved_docs": " | ".join(r["doc_name"] for r in retrieved),
         "retrieval_time_s": round(result["latency"]["retrieval"], 3),
         "generation_time_s": round(result["latency"]["generation"], 3),
+        "prompt_tokens": (result.get("usage") or {}).get("prompt_tokens"),
+        "completion_tokens": (result.get("usage") or {}).get("completion_tokens"),
     }
 
     if answerable:
@@ -110,6 +112,8 @@ summary = {
     "unanswerable_needing_manual_review": sum(r["unanswerable_result"] == "REVIEW_MANUALLY" for r in unanswered),
     "avg_retrieval_time_s": round(sum(r["retrieval_time_s"] for r in rows) / len(rows), 3),
     "avg_generation_time_s": round(sum(gen_times) / len(gen_times), 3) if gen_times else None,
+    "total_prompt_tokens": sum(r["prompt_tokens"] or 0 for r in rows),
+    "total_completion_tokens": sum(r["completion_tokens"] or 0 for r in rows),
 }
 
 config = {

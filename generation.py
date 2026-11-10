@@ -2,7 +2,7 @@ import os
 import time
 from dotenv import load_dotenv
 from retrieval import retrieve_relevant_chunks
-from llm_provider import generate_answer
+from llm_provider import generate_answer_with_usage
 
 load_dotenv()
 
@@ -44,28 +44,37 @@ def ask(question: str, use_cache: bool = True) -> dict:
             "sources": [],
             "retrieved": retrieved,
             "latency": {"retrieval": retrieval_time, "generation": 0.0},
+            "usage": {"prompt_tokens": None, "completion_tokens": None, "cached": False},
+            "refused_by_threshold": True,
         }
 
     context = "\n\n".join(c["text"] for c in chunks)
     prompt = PROMPT_TEMPLATE.format(context=context, question=question)
 
     start = time.time()
-    answer = generate_answer(prompt, use_cache=use_cache)
+    generated = generate_answer_with_usage(prompt, use_cache=use_cache)
     generation_time = time.time() - start
 
     sources = [{"doc_name": c["doc_name"], "excerpt": c["text"][:150]} for c in chunks]
 
     return {
-        "answer": answer,
+        "answer": generated["text"],
         "sources": sources,
         "retrieved": retrieved,
         "latency": {"retrieval": retrieval_time, "generation": generation_time},
+        "usage": {
+            "prompt_tokens": generated["prompt_tokens"],
+            "completion_tokens": generated["completion_tokens"],
+            "cached": generated["cached"],
+        },
+        "refused_by_threshold": False,
     }
 
 
 if __name__ == "__main__":
     result = ask("How many vacation days do I get after 3 years?")
     print("ANSWER:", result["answer"])
+    print("TOKENS:", result["usage"])
     print("\nSOURCES:")
     for s in result["sources"]:
         print(f"  - {s['doc_name']}: {s['excerpt']}...")

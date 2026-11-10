@@ -28,8 +28,10 @@ services:
       CHROMA_PATH: /app/storage/chroma
       DOCUMENTS_DIR: /app/storage/documents
       HF_HOME: /models
+      QUERY_LOG_PATH: /app/storage/logs/queries.jsonl
     volumes:
       - chroma:/app/storage/chroma
+      - logs:/app/storage/logs
       - documents:/app/storage/documents
       - hf_cache:/models                # the embedding model is downloaded once, then reused
     ports:
@@ -62,4 +64,5 @@ volumes:
   pgdata:
   chroma:
   documents:
+  logs:
   hf_cache:

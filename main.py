@@ -1,5 +1,6 @@
 import os
 import shutil
+import time
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from sqlalchemy import func
 from models import SessionLocal, Document
@@ -7,6 +8,7 @@ from extraction import extract_text, EmptyDocumentError
 from chunking import chunk_text
 from embeddings_store import store_chunks, collection
 from chunk_store import delete_chunks_for_document
+from query_log import log_query
 from generation import ask as ask_pipeline
 
 app = FastAPI(title="Enterprise Knowledge Assistant")
@@ -112,5 +114,30 @@ def delete_document(doc_id: int):
 
 @app.post("/ask")
 def ask_question(question: str = Form(...)):
+    start = time.time()
     result = ask_pipeline(question)
-    return result
+    total_time = time.time() - start
+
+    # One structured log line per question. A logging problem must never break an answer.
+    try:
+        retrieved = result.get("retrieved") or []
+        latency = result.get("latency") or {}
+        usage = result.get("usage") or {}
+        log_query({
+            "question": question,
+            "refused_by_threshold": result.get("refused_by_threshold"),
+            "top_distance": round(retrieved[0]["distance"], 3) if retrieved else None,
+            "retrieved": [{"doc_name": r["doc_name"], "distance": round(r["distance"], 3)} for r in retrieved],
+            "retrieval_time_s": round(latency.get("retrieval", 0.0), 3),
+            "generation_time_s": round(latency.get("generation", 0.0), 3),
+            "total_time_s": round(total_time, 3),
+            "prompt_tokens": usage.get("prompt_tokens"),
+            "completion_tokens": usage.get("completion_tokens"),
+            "cached": usage.get("cached", False),
+            "answer_chars": len(result["answer"]),
+        })
+    except Exception as e:
+        print(f"WARNING: could not write the query log: {e}")
+
+    # The client only needs the answer and its sources, not the internal details
+    return {"answer": result["answer"], "sources": result["sources"]}

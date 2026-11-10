@@ -25,6 +25,7 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy.pool import StaticPool
 
 from chunk_store import build_chunk_records, count_chunks_for_document
+from query_log import read_log
 
 
 def docx_bytes(text):
@@ -44,6 +45,8 @@ TOO_SHORT = docx_bytes("Hi")  # almost no text: the app must reject it
 def api(tmp_path, monkeypatch):
     docs_dir = tmp_path / "docs"
     monkeypatch.setenv("DOCUMENTS_DIR", str(docs_dir))
+    log_path = tmp_path / "logs" / "queries.jsonl"
+    monkeypatch.setenv("QUERY_LOG_PATH", str(log_path))
 
     # stand-in for models.py: same table, but SQLite in memory
     engine = create_engine("sqlite://", connect_args={"check_same_thread": False}, poolclass=StaticPool)
@@ -79,7 +82,17 @@ def api(tmp_path, monkeypatch):
     fake_store.store_chunks = store_chunks
 
     fake_generation = types.ModuleType("generation")
-    fake_generation.ask = lambda question, use_cache=True: {"answer": "stub", "sources": []}
+    def fake_ask(question, use_cache=True):
+        return {
+            "answer": "stub answer",
+            "sources": [{"doc_name": "a.docx", "excerpt": "x"}],
+            "retrieved": [{"doc_name": "a.docx", "distance": 4.2, "text": "SECRET CHUNK TEXT"}],
+            "latency": {"retrieval": 0.05, "generation": 0.5},
+            "usage": {"prompt_tokens": 100, "completion_tokens": 20, "cached": False},
+            "refused_by_threshold": False,
+        }
+
+    fake_generation.ask = fake_ask
 
     # monkeypatch puts the real modules back after each test
     monkeypatch.setitem(sys.modules, "models", fake_models)
@@ -95,6 +108,8 @@ def api(tmp_path, monkeypatch):
         docs_dir=docs_dir,
         SessionLocal=SessionLocal,
         Document=Document,
+        main=main,
+        log_path=log_path,
     )
     sys.modules.pop("main", None)
 
@@ -172,3 +187,34 @@ def test_the_filename_check_ignores_upper_and_lower_case(api):
     assert upload(api, "Policy.docx", V1).status_code == 200
     assert upload(api, "policy.docx", V2).status_code == 409
     assert len(rows(api)) == 1
+
+
+def test_asking_returns_only_the_answer_and_its_sources(api):
+    response = api.client.post("/ask", data={"question": "How many days?"})
+    assert response.status_code == 200
+    assert set(response.json()) == {"answer", "sources"}
+
+
+def test_every_question_is_logged_without_the_chunk_text(api):
+    api.client.post("/ask", data={"question": "How many days?"})
+
+    records = read_log(str(api.log_path))
+    assert len(records) == 1
+    record = records[0]
+    assert record["question"] == "How many days?"
+    assert record["prompt_tokens"] == 100 and record["completion_tokens"] == 20
+    assert record["retrieved"] == [{"doc_name": "a.docx", "distance": 4.2}]
+    assert record["refused_by_threshold"] is False
+    assert "SECRET CHUNK TEXT" not in api.log_path.read_text(encoding="utf-8")
+
+
+def test_a_logging_failure_never_breaks_the_answer(api, monkeypatch):
+    def broken(entry):
+        raise OSError("disk full")
+
+    monkeypatch.setattr(api.main, "log_query", broken)
+
+    response = api.client.post("/ask", data={"question": "x"})
+
+    assert response.status_code == 200
+    assert response.json()["answer"] == "stub answer"

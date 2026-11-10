@@ -12,6 +12,7 @@ data/
 chroma_data/
 eval_results/
 llm_cache.json
+logs/
 
 # secrets are passed in at run time, never baked into an image
 .env
