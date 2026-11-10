@@ -1,0 +1,32 @@
+name: tests
+
+# Runs the automated tests on every push, on every pull request,
+# and on demand from the Actions tab ("Run workflow" button).
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: requirements-ci.txt
+
+      - name: Install the packages the tests need
+        run: python -m pip install -r requirements-ci.txt
+
+      - name: Run the tests
+        run: python -m pytest
