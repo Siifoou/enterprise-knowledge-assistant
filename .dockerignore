@@ -1,0 +1,20 @@
+# environments and tooling
+venv/
+venv-eval/
+.git/
+.github/
+.pytest_cache/
+__pycache__/
+*.pyc
+
+# data and results stay out of the image (they live in Docker volumes)
+data/
+chroma_data/
+eval_results/
+llm_cache.json
+
+# secrets are passed in at run time, never baked into an image
+.env
+
+# tests are not needed at run time
+tests/

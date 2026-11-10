@@ -1,17 +1,65 @@
-version: "3.9"
+# Three services: the database, the API, and the Streamlit interface.
+# Start:        docker compose up -d
+# Stop:         docker compose down        (your data stays: it lives in named volumes)
+# DANGER:       docker compose down -v     (also deletes the volumes, i.e. all documents and chunks)
+name: eka
 
 services:
   postgres:
     image: postgres:16
-    container_name: eka_postgres
     environment:
       POSTGRES_USER: eka_user
-      POSTGRES_PASSWORD: eka_password
+      POSTGRES_PASSWORD: eka_password   # development only
       POSTGRES_DB: eka_db
-    ports:
-      - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U eka_user -d eka_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+    image: eka-app:latest
+    env_file: .env                      # GROQ_API_KEY and the RAG settings
+    environment:                        # these override anything in .env
+      DATABASE_URL: postgresql+psycopg2://eka_user:eka_password@postgres:5432/eka_db
+      CHROMA_PATH: /app/storage/chroma
+      DOCUMENTS_DIR: /app/storage/documents
+      HF_HOME: /models
+    volumes:
+      - chroma:/app/storage/chroma
+      - documents:/app/storage/documents
+      - hf_cache:/models                # the embedding model is downloaded once, then reused
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/documents')"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 90s
+
+  ui:
+    build: .
+    image: eka-app:latest
+    command: ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    environment:
+      API_URL: http://api:8000          # inside Docker the API is reached by its service name
+      STREAMLIT_SERVER_HEADLESS: "true"
+      STREAMLIT_BROWSER_GATHER_USAGE_STATS: "false"
+    ports:
+      - "8501:8501"
+    depends_on:
+      api:
+        condition: service_healthy
 
 volumes:
-  postgres_data:
+  pgdata:
+  chroma:
+  documents:
+  hf_cache:
