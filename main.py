@@ -1,27 +1,50 @@
 import os
 import shutil
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from sqlalchemy import func
 from models import SessionLocal, Document
 from extraction import extract_text, EmptyDocumentError
 from chunking import chunk_text
 from embeddings_store import store_chunks, collection
+from chunk_store import delete_chunks_for_document
 from generation import ask as ask_pipeline
 
 app = FastAPI(title="Enterprise Knowledge Assistant")
 
-DOCUMENTS_DIR = "data/documents"
+# Where the original files are kept. Configurable so tests can use a throwaway folder.
+DOCUMENTS_DIR = os.getenv("DOCUMENTS_DIR", "data/documents")
 os.makedirs(DOCUMENTS_DIR, exist_ok=True)
 
 
 @app.post("/documents/upload")
 async def upload_document(file: UploadFile = File(...), category: str = Form(None)):
+    db = SessionLocal()
+
+    # Refuse a filename that is already used. Files are stored under their own name, so a second
+    # upload would silently overwrite the first one's file, and deleting either record would then
+    # delete the file the other record still points to. This check runs BEFORE anything is saved.
+    # Compared in lower case: on Windows 'Policy.docx' and 'policy.docx' are the SAME file on disk.
+    already_there = (
+        db.query(Document)
+        .filter(func.lower(Document.name) == file.filename.lower())
+        .first()
+    )
+    if already_there:
+        db.close()
+        raise HTTPException(
+            status_code=409,
+            detail=(
+                f"A document named '{file.filename}' already exists. "
+                f"Delete it first if you want to replace it."
+            ),
+        )
+
     file_path = os.path.join(DOCUMENTS_DIR, file.filename)
 
     # Save the raw file to disk first (step 1 of the storage architecture)
     with open(file_path, "wb") as f:
         shutil.copyfileobj(file.file, f)
 
-    db = SessionLocal()
     doc = Document(
         name=file.filename,
         category=category,
@@ -50,7 +73,7 @@ async def upload_document(file: UploadFile = File(...), category: str = Form(Non
 
     doc_id, doc_name = doc.id, doc.name  # grab values BEFORE closing the session
     db.close()
-    return {"id": doc.id, "name": doc.name, "status": "indexed"}
+    return {"id": doc_id, "name": doc_name, "status": "indexed"}
 
 
 @app.get("/documents")
@@ -78,9 +101,7 @@ def delete_document(doc_id: int):
     if os.path.exists(doc.file_path):
         os.remove(doc.file_path)  # 1. file
 
-    existing = collection.get(where={"doc_id": str(doc_id)})
-    if existing["ids"]:
-        collection.delete(ids=existing["ids"])  # 2. Chroma chunks
+    delete_chunks_for_document(collection, doc_id)  # 2. Chroma chunks
 
     db.delete(doc)  # 3. Postgres row
     db.commit()

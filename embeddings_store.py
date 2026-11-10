@@ -3,9 +3,13 @@ import chromadb
 from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
 
+from chunk_store import build_chunk_records
+
 load_dotenv()
 
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "paraphrase-multilingual-mpnet-base-v2")
+# Where Chroma keeps its files. Configurable so tests and experiments can use their own folder.
+CHROMA_PATH = os.getenv("CHROMA_PATH", "./chroma_data")
 
 # Loaded once, reused for every call — loading the model is slow, embedding text is fast
 _model = None
@@ -25,16 +29,16 @@ def embed_chunks(chunks: list[str]) -> list[list[float]]:
     return embeddings.tolist()
 
 
-# Chroma client — persists to disk under ./chroma_data, survives script restarts
-chroma_client = chromadb.PersistentClient(path="./chroma_data")
+# Chroma client — persists to disk, survives script restarts
+chroma_client = chromadb.PersistentClient(path=CHROMA_PATH)
 collection = chroma_client.get_or_create_collection(name="documents")
 
 
 def store_chunks(doc_id: str, doc_name: str, chunks: list[str]):
     embeddings = embed_chunks(chunks)
 
-    ids = [f"{doc_id}_chunk_{i}" for i in range(len(chunks))]
-    metadatas = [{"doc_id": doc_id, "doc_name": doc_name, "chunk_index": i} for i in range(len(chunks))]
+    # The labels come from chunk_store, the same module that deletion uses to find them again
+    ids, metadatas = build_chunk_records(doc_id, doc_name, chunks)
 
     collection.add(
         ids=ids,
